@@ -71,6 +71,7 @@
             </Grid>
         </materialDesign:Card>
 
+        <Frame Grid.Column="1" Margin="16 8 8 8" />
 
 
     </Grid>
