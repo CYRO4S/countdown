@@ -13,7 +13,8 @@
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{StaticResource MaterialDesignFont}"
         Title="设置" Height="450" Width="800"
-        MinWidth="281">
+        MinWidth="281"
+        Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -25,22 +26,23 @@
                              HorizontalAlignment="Left" Width="250">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition Height="320*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0" Background="{DynamicResource MaterialDesignPaper}">
                     <TextBlock Text="设置" Grid.Row="0"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontSize="26" FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei"
+                       FontSize="24" FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei"
                        FontWeight="Medium"/>
                 </Grid>
 
 
-                <ListBox Background="White" Grid.Row="1">
+                <ListBox x:Name="lstMenu" Background="White" Grid.Row="1"
+                         SelectionChanged="lstMenu_SelectionChanged">
 
 
-                    <ListBoxItem>
+                    <ListBoxItem Tag="optSchedule">
                         <StackPanel Height="48" Orientation="Horizontal">
                             <Grid>
                                 <Ellipse Fill="DeepSkyBlue" Height="44" Width="44" Margin="8,0,8,0" />
@@ -50,11 +52,11 @@
                             </Grid>
                             <TextBlock Text="计划时间" Margin="8 12"
                                FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei"
-                               FontSize="20" />
+                               FontSize="18" />
                         </StackPanel>
                     </ListBoxItem>
 
-                    <ListBoxItem>
+                    <ListBoxItem Tag="optOptions">
                         <StackPanel Height="48" Orientation="Horizontal">
                             <Grid>
                                 <Ellipse Fill="Orange" Height="44" Width="44" Margin="8,0,8,0" />
@@ -64,14 +66,63 @@
                             </Grid>
                             <TextBlock Text="选项" Margin="8 12"
                                FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei"
-                               FontSize="20" />
+                               FontSize="18" />
                         </StackPanel>
                     </ListBoxItem>
                 </ListBox>
             </Grid>
         </materialDesign:Card>
 
-        <Frame Grid.Column="1" Margin="16 8 8 8" />
+        <Grid x:Name="grdSchedule" Grid.Column="1" Margin="16 8 8 8">
+            <StackPanel Orientation="Vertical" Margin="16 16 0 0">
+                <TextBlock Text="自动关机计划"
+                           FontSize="18" FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" />
+                <StackPanel Margin="0 12 0 0">
+                    <RadioButton x:Name="radSchedule" Content="在下面的时间点自动关机" IsChecked="True"
+                                 FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14" />
+
+                    <TextBox x:Name="txtSchedule" Margin="22 8 32 8"
+                               FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14"
+                               Text="23:00" />
+
+                    <RadioButton x:Name="radLast" Content="等待下面的时间后自动关机"
+                                 FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14" 
+                                 Checked="radLast_Checked" Unchecked="radLast_Unchecked"/>
+                    <TextBox x:Name="txtLast" Margin="22 8 32 8"
+                               FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14"
+                               Text="0:30:00" IsEnabled="False" />
+                </StackPanel>
+
+                <TextBlock Text="关机延时" Margin="0 16 0 0"
+                           FontSize="18" FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" />
+                <StackPanel Margin="0 12 0 0">
+                    <RadioButton x:Name="radImme" Content="立即" IsChecked="True"
+                                 FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14" />
+
+                    <RadioButton x:Name="radDelay" Content="等待半分钟" Margin="0 8 0 0"
+                                 FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid x:Name="grdOptions" Grid.Column="1" Margin="16 8 8 8" Visibility="Hidden">
+            <StackPanel Orientation="Vertical" Margin="16 16 0 0">
+                <TextBlock Text="快速启动"
+                       FontSize="18" FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" />
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton x:Name="togRapidStart" Margin="0 12 0 0" IsChecked="True"/>
+                    <TextBlock Text="启用快速启动" Margin="8 12 0 0"
+                              FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14" />
+                </StackPanel>
+                <StackPanel x:Name="pnlUnsupported" Orientation="Horizontal" Margin="4 8 0 0" Visibility="Collapsed">
+                    <materialDesign:PackIcon Kind="InformationOutline" Foreground="IndianRed" />
+                    <TextBlock Margin="8 0 0 0" Foreground="IndianRed"
+                               Text="您的系统不支持快速启动。快速启动最低需要 Windows 8。"
+                               FontFamily="Product Sans, Noto Sans CJK SC, Microsoft Yahei" FontSize="14" />
+                </StackPanel>
+                
+            </StackPanel>
+        </Grid>
 
 
     </Grid>
