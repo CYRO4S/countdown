@@ -12,10 +12,10 @@ Imports System.Windows
 '查看程序集特性的值
 
 <Assembly: AssemblyTitle("Countdown")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyDescription("Shutdown Scheduler")>
+<Assembly: AssemblyCompany("Ralf Ren")>
 <Assembly: AssemblyProduct("Countdown")>
-<Assembly: AssemblyCopyright("Copyright ©  2018")>
+<Assembly: AssemblyCopyright("©2018 Ralf Ren. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(false)>
 

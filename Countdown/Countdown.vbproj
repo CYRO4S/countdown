@@ -47,7 +47,16 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\timer.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Catboy.ConfigParser">
+      <HintPath>..\..\..\..\Git\catboy-dotnet\Catboy.ConfigParser\Catboy.ConfigParser\bin\Release\Catboy.ConfigParser.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -116,6 +125,7 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\Timer.vb" />
     <Compile Include="Modules\TrayIcon.vb" />
     <Compile Include="Modules\Util.vb" />
     <Compile Include="My Project\AssemblyInfo.vb">
@@ -140,6 +150,7 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
     </EmbeddedResource>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -151,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\timer_tray.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\timer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

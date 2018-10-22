@@ -2,6 +2,28 @@
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         lstMenu.SelectedIndex = 0
+
+        If IO.File.Exists(GetConfigFile) Then
+            Dim pref As Settings = LoadSettings()
+
+            If pref.IsSchedule Then
+                radSchedule.IsChecked = True
+            Else
+                radLast.IsChecked = True
+            End If
+
+            If pref.IsImmediatly Then
+                radImme.IsChecked = True
+            Else
+                radDelay.IsChecked = True
+            End If
+
+            txtSchedule.Text = pref.ScheduleTime
+            txtLast.Text = pref.LastTime
+
+            togRapidStart.IsChecked = pref.IsRapidStart
+
+        End If
         CheckRapidStartCompatibility()
     End Sub
 
@@ -33,5 +55,17 @@
             togRapidStart.IsEnabled = False
             pnlUnsupported.Visibility = Visibility.Visible
         End If
+    End Sub
+
+    Private Sub Window_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
+        Dim pref As New Settings With {
+            .IsSchedule = radSchedule.IsChecked,
+            .ScheduleTime = txtSchedule.Text,
+            .LastTime = txtLast.Text,
+            .IsImmediatly = radImme.IsChecked,
+            .IsRapidStart = togRapidStart.IsChecked
+        }
+        SaveSettings(pref)
+        ShowTrayIcon()
     End Sub
 End Class

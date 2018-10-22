@@ -6,10 +6,13 @@ Module TrayIcon
     Dim wndConfig As ConfigWindow
 
     Public Sub ShowTrayIcon()
-        If ico IsNot Nothing Then Exit Sub
+        If ico IsNot Nothing Then
+            ico.Visible = False
+            ico.Dispose()
+        End If
 
         ico = New NotifyIcon With {
-            .Text = "Aronnax",
+            .Text = "自动关机",
             .Icon = New System.Drawing.Icon(GetApplicationDir() & "Resources\timer_tray.ico")
         }
 
@@ -32,15 +35,27 @@ Module TrayIcon
         ico.ContextMenu = menu
         ico.Visible = True
 
+        AddHandler Timer.TimesUp, AddressOf TimesUpHandler
+        StartTimer()
+
     End Sub
 
     Private Sub ExitHandler(sender As Object, e As EventArgs)
+        ico.Visible = False
         End
     End Sub
 
     Private Sub ShowMainWindowHandler(sender As Object, e As EventArgs)
         wndConfig = New ConfigWindow
         wndConfig.Show()
+    End Sub
+
+    Private Sub TimesUpHandler()
+        My.Application.Dispatcher.Invoke(New Action(
+            Sub()
+                Dim wndCountdown As New CountDownWindow
+                wndCountdown.Show()
+            End Sub))
     End Sub
 
 End Module
